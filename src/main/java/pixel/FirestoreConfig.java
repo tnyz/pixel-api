@@ -8,9 +8,9 @@ import com.google.cloud.firestore.FirestoreOptions;
 import java.io.IOException;
 
 public class FirestoreConfig {
-    private static final String projectId = System.getenv("projectId");
+    private static final String projectId = System.getenv("PROJECT_ID");
 
-    private static final String collection = System.getenv("dataset");
+    private static final String collection = System.getenv("DATASET");
 
     private static Firestore connectFirestore() throws IOException {
         FirestoreOptions firestoreOptions = FirestoreOptions.getDefaultInstance()
