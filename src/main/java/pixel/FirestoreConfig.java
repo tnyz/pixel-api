@@ -1,0 +1,28 @@
+package pixel;
+
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.firestore.CollectionReference;
+import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.FirestoreOptions;
+
+import java.io.IOException;
+
+public class FirestoreConfig {
+    private static final String projectId = System.getenv("projectId");
+
+    private static final String collection = System.getenv("dataset");
+
+    private static Firestore connectFirestore() throws IOException {
+        FirestoreOptions firestoreOptions = FirestoreOptions.getDefaultInstance()
+                .toBuilder()
+                .setProjectId(projectId)
+                .setCredentials(GoogleCredentials.getApplicationDefault())
+                .build();
+        return firestoreOptions.getService();
+    }
+
+    public static CollectionReference pixelCollection() throws IOException {
+        Firestore db = connectFirestore();
+        return db.collection(collection);
+    }
+}
