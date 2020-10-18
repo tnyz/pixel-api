@@ -37,7 +37,7 @@ public class PixelService implements HttpFunction {
     private void writePixel(HttpRequest request, HttpResponse response) {
         Pixel pixel = extractPixel(request);
         if (!pixel.isValid()) {
-            response.setStatusCode(400, new IllegalArgumentException().getMessage());
+            response.setStatusCode(400);
             return;
         }
 
