@@ -2,6 +2,10 @@
 
 A serverless pixel service API backed by NoSQL (Firestore).
 
+GET: https://us-central1-narrative-292719.cloudfunctions.net/analytics?timestamp=100
+
+POST: "https://us-central1-narrative-292719.cloudfunctions.net/analytics?timestamp=1000000&user=user&event=click"
+
 # deployment
 
 ```
