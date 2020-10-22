@@ -13,11 +13,14 @@ public class FirestoreConfig {
     private static final String collection = System.getenv("DATASET");
 
     private static Firestore connectFirestore() throws IOException {
-        FirestoreOptions firestoreOptions = FirestoreOptions.getDefaultInstance()
-                .toBuilder()
-                .setProjectId(projectId)
-                .setCredentials(GoogleCredentials.getApplicationDefault())
-                .build();
+        FirestoreOptions firestoreOptions = projectId == null ?
+                FirestoreOptions.getDefaultInstance() :
+                FirestoreOptions.getDefaultInstance()
+                        .toBuilder()
+                        .setProjectId(projectId)
+                        .setCredentials(GoogleCredentials.getApplicationDefault())
+                        .build();
+
         return firestoreOptions.getService();
     }
 

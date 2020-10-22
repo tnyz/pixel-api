@@ -53,9 +53,9 @@ public class PixelService implements HttpFunction {
     private Pixel extractPixel(HttpRequest request) {
         try {
             Map<String, List<String>> params = request.getQueryParameters();
-            return new Pixel(Long.parseLong(params.get(Pixel.TimestampField).get(0)),
-                    params.get(Pixel.UserIdField).get(0),
-                    params.get(Pixel.EventField).get(0));
+            return new Pixel(Long.parseLong(params.get(Pixel.TIMESTAMP_FIELD).get(0)),
+                    params.get(Pixel.USER_ID_FIELD).get(0),
+                    params.get(Pixel.EVENT_FIELD).get(0));
         } catch (Exception e) {
             return new Pixel();
         }
@@ -67,7 +67,7 @@ public class PixelService implements HttpFunction {
 
     private String pixelSummaryResponse(long minTimestampMillis) throws ExecutionException, InterruptedException, IOException {
         List<Pixel> pixels = FirestoreConfig.pixelCollection()
-                .whereGreaterThan(Pixel.TimestampField, epochMilliSeoncdsOneHourOffset(minTimestampMillis))
+                .whereGreaterThan(Pixel.TIMESTAMP_FIELD, epochMilliSeoncdsOneHourOffset(minTimestampMillis))
                 .get().get().toObjects(Pixel.class);
         int userCount = (int) pixels.stream().map(p -> p.user).distinct().count();
         int clickCount = (int) pixels.stream().filter(Pixel::isClick).count();
